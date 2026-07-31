@@ -1,7 +1,7 @@
 import { defineConfig } from 'vite'
 
 export default defineConfig({
-  base: '/file-converter/',
+  base: '/Conversion-test/',
   build: {
     outDir: 'dist',
     assetsDir: 'assets',
