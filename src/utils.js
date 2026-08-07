@@ -84,10 +84,69 @@ export const CATEGORIES = {
   }
 };
 
+export const SUPPORTED_MATRIX = {
+  document: {
+    docx:  ['txt','md','html','pdf'],
+    xlsx:  ['csv','json','html','xlsx'],
+    xls:   ['csv','json','html','xlsx'],
+    csv:   ['csv','json','html','xlsx'],
+    ods:   ['csv','json','html','xlsx'],
+    txt:   ['txt','md','html','pdf'],
+    md:    ['txt','md','html','pdf'],
+    html:  ['txt','md','html'],
+    pdf:   [],
+    doc:   [],
+    rtf:   [],
+    odt:   [],
+    pages: [],
+    ppt:   [],
+    pptx:  [],
+    odp:   [],
+    key:   [],
+    xlsm:  []
+  },
+  image: {
+    jpg:   ['png','jpg','webp','gif','bmp'],
+    jpeg:  ['png','jpg','webp','gif','bmp'],
+    png:   ['png','jpg','webp','gif','bmp'],
+    gif:   ['png','jpg','webp','gif','bmp'],
+    bmp:   ['png','jpg','webp','gif','bmp'],
+    webp:  ['png','jpg','webp','gif','bmp'],
+    tiff:  ['png','jpg','webp','gif','bmp'],
+    tif:   ['png','jpg','webp','gif','bmp'],
+    svg:   ['png','jpg','webp','bmp'],
+    heic:  [],
+    avif:  []
+  },
+  ebook: {
+    epub:  ['txt','html'],
+    mobi:  ['txt'],
+    azw3:  ['txt'],
+    pdf:   []
+  },
+  data: {
+    json:  ['json','xml','csv','yaml','toml'],
+    xml:   ['json','xml','csv','yaml','toml'],
+    csv:   ['json','xml','csv','yaml','toml'],
+    yaml:  ['json','xml','csv','yaml','toml'],
+    yml:   ['json','xml','csv','yaml','toml'],
+    toml:  ['json','xml','csv','yaml','toml'],
+    zip:   ['zip'],
+    rar:   [],
+    '7z':  []
+  }
+};
+
+export function getSupportedTargets(catId, filename) {
+  const ext = getExt(filename);
+  const matrix = SUPPORTED_MATRIX[catId];
+  return matrix ? (matrix[ext] || []) : [];
+}
+
 export function getExt(name) { return name.split('.').pop().toLowerCase(); }
 export function getCat(name) {
   const e = getExt(name);
-  for (const [k, v] of Object.entries(CATEGORIES)) if (v.exts.includes(e)) return k;
+  for (const [c, info] of Object.entries(CATEGORIES)) if (info.exts.includes(e)) return c;
   return null;
 }
 export function fmtSize(b) {
